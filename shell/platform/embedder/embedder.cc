@@ -2423,7 +2423,7 @@ FlutterEngineResult FlutterEngineSendPointerEvent(
     pointer_data.rotation = SAFE_ACCESS(current, rotation, 0.0);
     pointer_data.view_id =
         SAFE_ACCESS(current, view_id, kFlutterImplicitViewId);
-    pointer_data.pressure = current->pressure;    
+    pointer_data.pressure = current->pressure;
     packet->SetPointerData(i, pointer_data);
     current = reinterpret_cast<const FlutterPointerEvent*>(
         reinterpret_cast<const uint8_t*>(current) + current->struct_size);

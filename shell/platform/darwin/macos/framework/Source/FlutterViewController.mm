@@ -794,17 +794,14 @@ static void CommonInit(FlutterViewController* controller, FlutterEngine* engine)
     }
   }
 
-   NSEventType type = [event type];
+  NSEventType type = [event type];
 
-  if (type == NSLeftMouseDown ||
-    type == NSEventTypeLeftMouseDragged ||
-    type == NSLeftMouseUp ||
-    type == NSMouseMoved) {
-
+  if (type == NSLeftMouseDown || type == NSEventTypeLeftMouseDragged || type == NSLeftMouseUp ||
+      type == NSMouseMoved) {
     NSEventSubtype subtype = [event subtype];
     if (subtype == NSEventSubtypeTabletPoint || subtype == NSEventSubtypeTabletProximity) {
       flutterEvent.device_kind = kFlutterPointerDeviceKindStylus;
-    } 
+    }
 
     if (type == NSEventTypeLeftMouseDragged) {
       flutterEvent.pressure = event.pressure;
