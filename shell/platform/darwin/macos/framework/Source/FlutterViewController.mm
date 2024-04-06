@@ -794,6 +794,23 @@ static void CommonInit(FlutterViewController* controller, FlutterEngine* engine)
     }
   }
 
+   NSEventType type = [event type];
+
+  if (type == NSLeftMouseDown ||
+    type == NSEventTypeLeftMouseDragged ||
+    type == NSLeftMouseUp ||
+    type == NSMouseMoved) {
+
+    NSEventSubtype subtype = [event subtype];
+    if (subtype == NSEventSubtypeTabletPoint || subtype == NSEventSubtypeTabletProximity) {
+      flutterEvent.device_kind = kFlutterPointerDeviceKindStylus;
+    } 
+
+    if (type == NSEventTypeLeftMouseDragged) {
+      flutterEvent.pressure = event.pressure;
+    }
+  }
+
   [_keyboardManager syncModifiersIfNeeded:event.modifierFlags timestamp:event.timestamp];
   [_engine sendPointerEvent:flutterEvent];
 
@@ -889,7 +906,7 @@ static void CommonInit(FlutterViewController* controller, FlutterEngine* engine)
  * with CFDataGetBytePtr, then reinterpret it into const UCKeyboardLayout*.
  * It's returned in NSData* to enable auto reference count.
  */
-static NSData* CurrentKeyboardLayoutData() {
+NSData* CurrentKeyboardLayoutData() {
   TISInputSourceRef source = TISCopyCurrentKeyboardInputSource();
   CFTypeRef layout_data = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData);
   if (layout_data == nil) {

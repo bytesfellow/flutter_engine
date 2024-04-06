@@ -1018,6 +1018,8 @@ typedef struct {
   double rotation;
   /// The identifier of the view that received the pointer event.
   FlutterViewId view_id;
+  /// Pressure from the device pointer
+  double pressure;
 } FlutterPointerEvent;
 
 typedef enum {
