@@ -903,7 +903,7 @@ static void CommonInit(FlutterViewController* controller, FlutterEngine* engine)
  * with CFDataGetBytePtr, then reinterpret it into const UCKeyboardLayout*.
  * It's returned in NSData* to enable auto reference count.
  */
-NSData* CurrentKeyboardLayoutData() {
+static NSData* CurrentKeyboardLayoutData() {
   TISInputSourceRef source = TISCopyCurrentKeyboardInputSource();
   CFTypeRef layout_data = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData);
   if (layout_data == nil) {
